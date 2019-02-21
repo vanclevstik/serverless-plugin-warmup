@@ -1008,7 +1008,7 @@ describe('Serverless warmup plugin constructor', () => {
         custom: {
           warmup: {
             enabled: true,
-            folderName: 'test-folder'
+            folderName: 'test-folder',
           }
         },
         functions: { someFunc1: { name: 'someFunc1' }, someFunc2: { name: 'someFunc2' } }

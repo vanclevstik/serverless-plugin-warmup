@@ -68,7 +68,7 @@ For several stages:
 ```yml
 custom:
   warmup:
-    enabled: 
+    enabled:
       - production
       - staging
 ```
@@ -134,6 +134,7 @@ functions:
 * **events** (default `- schedule: rate(5 minutes)`)
 * **timeout** (default `10` seconds)
 * **prewarm** (default `false`)
+* **packageIndividually** (default `true`)
 
 #### Options that can be overridden per function
 
@@ -146,20 +147,21 @@ functions:
 custom:
   warmup:
     enabled: true # Whether to warm up functions by default or not
-    folderName: '_warmup' # Name of the folder created for the generated warmup 
+    folderName: '_warmup' # Name of the folder created for the generated warmup
     cleanFolder: false
     memorySize: 256
     name: 'make-them-pop'
     role: myCustRole0
     tags:
       Project: foo
-      Owner: bar 
+      Owner: bar
     vpc: false
     events:
       - schedule: 'cron(0/5 8-17 ? * MON-FRI *)' # Run WarmUp every 5 minutes Mon-Fri between 8:00am and 5:55pm (UTC)
     timeout: 20
     prewarm: true # Run WarmUp immediately after a deploymentlambda
-    payload: 
+    packageIndividually: true # Package warmup function individually
+    payload:
       source: my-custom-source
       other: 20
     payloadRaw: true # Won't JSON.stringify() the source, may be necessary for Go/AppSync deployments
@@ -199,7 +201,7 @@ WarmUp requires some permissions to be able to `invoke` lambdas.
 ```yaml
 custom:
   warmup:
-    folderName: '_warmup' # Name of the folder created for the generated warmup 
+    folderName: '_warmup' # Name of the folder created for the generated warmup
     cleanFolder: false
     memorySize: 256
     name: 'make-them-pop'
@@ -239,7 +241,7 @@ resources:
                     - logs:CreateLogGroup
                     - logs:CreateLogStream
                     - logs:PutLogEvents
-                  Resource: 
+                  Resource:
                     - 'Fn::Join':
                       - ':'
                       -
